@@ -41,8 +41,9 @@ AdventOfCode2025/
 ├── README.md
 ├── Day1/
 │   ├── day1.py          # Main solution
+│   ├── README.md        # Detailed day documentation
 │   ├── input.txt        # Puzzle input
-│   └── test.txt         # Test data
+│   └── test_input.txt   # Test data
 └── .vscode/             # VS Code configuration (optional)
     └── launch.json      # Debug configurations
 ```
