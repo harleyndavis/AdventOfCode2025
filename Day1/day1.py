@@ -18,22 +18,66 @@
     """
 
 with open('./Day1/input.txt', 'r') as file:
-    password = 0
+    zero_crossings = 0
     content = file.read()
-    currentValue = 50
+    position = 50
     for line in content.splitlines():
         direction = 1 if line[0] == 'R' else -1
         distance = int(line[1:])
-        while distance > 0:
-            currentValue += direction
-            distance -= 1
 
-            if currentValue < 0:
-                currentValue = 99
-            if currentValue > 99:
-                currentValue = 0
+        # # Move step by step to handle wrapping
+        # # O(n) approach, not efficient for large distances
+        # # Greatly improves efficiency to calculate mathematically
+        # while distance > 0:
+        #     currentValue += direction
+        #     distance -= 1
 
-            if currentValue == 0:
-                password += 1
+        #     if currentValue < 0:
+        #         currentValue = 99
+        #     if currentValue > 99:
+        #         currentValue = 0
 
-    print(password)
+        #     if currentValue == 0:
+        #         password += 1
+
+        # Calculate mathematically instead of step by step
+        # O(1) approach.
+        if direction == 1:  # Moving right (positive direction)
+            # Calculate how many times we'd pass position 0
+            
+            # Distance from current position to next 0 (going right)
+            if position == 0:
+                # Already at 0, first crossing is after 100 steps
+                distance_to_first_zero = 100
+            else:
+                # Distance to wrap around to 0: (100 - currentValue)
+                distance_to_first_zero = 100 - position
+            
+            if distance >= distance_to_first_zero:
+                # We'll cross at least one zero
+                zero_crossings += 1
+                remaining_distance = distance - distance_to_first_zero
+                # Each additional 100 steps crosses zero again
+                zero_crossings += remaining_distance // 100
+            
+        else:  # Moving left (negative direction)
+            # We pass 0 when going from 1 to 0
+            # Distance from current position to next 0 (going left)
+            if position == 0:
+                # Already at 0, first crossing is after 100 steps left (to 0 again)
+                distance_to_first_zero = 100
+            else:
+                # Distance to reach 0 going left: currentValue steps
+                distance_to_first_zero = position
+            
+            if distance >= distance_to_first_zero:
+                # We'll cross at least one zero
+                zero_crossings += 1
+                remaining_distance = distance - distance_to_first_zero
+                # Each additional 100 steps crosses zero again
+                zero_crossings += remaining_distance // 100
+        
+        # Update position for next iteration
+        position = (position + direction * distance) % 100
+
+    print("Password: " + str(zero_crossings))
