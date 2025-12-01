@@ -14,6 +14,15 @@ Part of the second step involves exercises perhaps unrelated to Advent Of Code j
 | 1 | [Secret Entrance](./Day1/README.md) | Circular position tracking with zero crossing optimization | [day1.py](./Day1/day1.py) |
 | 2 | TBD | _Coming soon..._ | |
 | 3 | TBD | _Coming soon..._ | |
+| 4 | TBD | _Coming soon..._ | |
+| 5 | TBD | _Coming soon..._ | |
+| 6 | TBD | _Coming soon..._ | |
+| 7 | TBD | _Coming soon..._ | |
+| 8 | TBD | _Coming soon..._ | |
+| 9 | TBD | _Coming soon..._ | |
+| 10 | TBD | _Coming soon..._ | |
+| 11 | TBD | _Coming soon..._ | |
+| 12 | TBD | _Coming soon..._ | |
 
 ### Quick Start
 
