@@ -33,7 +33,7 @@ with open('./Day1/input.txt', 'r') as file:
             if currentValue > 99:
                 currentValue = 0
 
-        if currentValue == 0:
-            password += 1
+            if currentValue == 0:
+                password += 1
 
     print(password)
