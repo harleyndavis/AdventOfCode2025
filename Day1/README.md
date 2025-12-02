@@ -14,6 +14,9 @@
 - ✅ **Command Line Arguments:** Flexible input file specification
 - ✅ **Error Handling:** Graceful handling of missing files and invalid input
 - ✅ **Code Quality:** Formatted with Black, follows PEP 8 standards
+- ✅ **Type Safety:** Full type hints with Python 3.10+ compatibility
+- ✅ **Modular Design:** Clean function extraction for testability
+- ✅ **Comprehensive Testing:** 24 unit tests with 100% pass rate
 
 ## Usage
 
@@ -22,10 +25,27 @@
 python Day1/day1.py
 
 # Specify custom input file
-python Day1/day1.py ./Day1/test.txt
+python Day1/day1.py ./Day1/test_input.txt
 
 # Use any file path
 python Day1/day1.py "path/to/your/file.txt"
+```
+
+## Testing
+
+Run the comprehensive test suite:
+
+```bash
+# Run all 24 unit tests
+cd Day1
+python test_day1.py
+
+# Tests cover:
+# - Command parsing (5 tests)
+# - Zero crossing algorithm (10 tests) 
+# - File processing (5 tests)
+# - Edge cases (3 tests)
+# - Infrastructure validation (1 test)
 ```
 
 ## Input Format
@@ -83,8 +103,33 @@ if distance >= distance_to_first_zero:
     crossings += remaining // 100  # Additional complete loops
 ```
 
+## Code Architecture
+
+The solution is structured with clean, testable functions:
+
+```python
+def parse_command(line: str) -> tuple[int, int]:
+    """Parse movement commands like 'R10' or 'L25'."""
+
+def calculate_zero_crossings(position: int, direction: int, distance: int) -> tuple[int, int]:
+    """Core algorithm for mathematical zero crossing calculation."""
+
+def process_commands(filename: str) -> int:
+    """Orchestrate file processing and return total crossings."""
+
+def main() -> None:
+    """Clean entry point with error handling."""
+```
+
 ## Development Notes
 
-This solution showcases the transformation from a naive O(n) simulation to an optimized mathematical approach, demonstrating algorithmic thinking and performance optimization principles.
+This solution showcases the transformation from a naive O(n) simulation to an optimized mathematical approach, demonstrating:
+
+- **Algorithmic thinking** and performance optimization
+- **Professional Python practices** with type hints and testing
+- **Clean architecture** with modular, testable functions
+- **Comprehensive validation** ensuring correctness across edge cases
+
+The development process included iterative improvements: optimization → type safety → function extraction → comprehensive testing.
 
 [← Back to Main README](../README.md)
