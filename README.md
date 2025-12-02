@@ -66,6 +66,8 @@ AdventOfCode2025/
 ├── Day1/
 │   ├── day1.py          # Main solution (type-hinted, modular)
 │   ├── test_day1.py     # Comprehensive unit tests (24 tests)
+│   ├── benchmark.py     # Performance benchmarks
+│   ├── extreme_benchmark.py # Stress testing with massive datasets
 │   ├── README.md        # Detailed day documentation
 │   ├── input.txt        # Puzzle input
 │   └── test_input.txt   # Test data
