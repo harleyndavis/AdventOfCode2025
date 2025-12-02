@@ -100,6 +100,49 @@ python benchmark.py
 python extreme_benchmark.py
 ```
 
+## 🎮 Visual GUI Demonstration
+
+We've created an interactive GUI that lets you **watch the algorithm in action**! This is perfect for understanding the difference between the naive O(n) and optimized O(1) approaches.
+
+### Features
+- **Circular Dial Visualization**: See positions 0-99 as a clock-like interface
+- **Real-time Animation**: Watch the red dot move around the dial
+- **Two Animation Modes**:
+  - **Step Mode**: See every single step (demonstrates O(n) approach)
+  - **Smooth Mode**: Jump to final positions (demonstrates O(1) approach)
+- **Speed Controls**: Adjust animation speed from 10ms to 500ms per step
+- **Zero Crossing Counter**: Watch crossings increment in real-time
+- **Progress Tracking**: See command progress and statistics
+- **Custom File Loading**: Visualize any input file
+
+### Running the GUI
+
+```bash
+# Basic usage with default data
+python gui_visualizer.py
+
+# Load your actual puzzle input
+python gui_visualizer.py --file input.txt
+
+# Run the demo with sample files
+python gui_demo.py
+```
+
+### GUI Controls
+- 🔴 **Red Dot**: Current position on the dial
+- 🟢 **Green Circle**: Position 0 (zero crossing point)  
+- 🔵 **Blue Lines**: Movement paths taken
+- **▶ Play/⏸ Pause**: Control animation
+- **Speed Slider**: Adjust animation speed
+- **Step Mode**: Toggle between step-by-step vs direct movement
+
+### Perfect for Learning!
+The GUI makes it crystal clear why the mathematical optimization matters:
+- **Step Mode**: Watch thousands of individual movements (slow!)
+- **Smooth Mode**: See instant jumps to final positions (fast!)
+
+Try loading your actual puzzle input and compare the two modes! 🚀
+
 ## Complexity Analysis
 
 - **Original approach:** O(D) where D = sum of all movement distances
