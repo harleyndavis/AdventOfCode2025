@@ -19,17 +19,21 @@ Side Effects:
 
 import sys
 
+# Constants for clarity
+START_POSITION: int = 50
+POSITION_RANGE: int = 100
+
 # Get filename from command line argument, or use default
-filename = sys.argv[1] if len(sys.argv) > 1 else "./Day1/input.txt"
+filename: str = sys.argv[1] if len(sys.argv) > 1 else "./Day1/input.txt"
 
 try:
     with open(filename, "r") as file:
-        zero_crossings = 0
-        content = file.read()
-        position = 50
+        zero_crossings: int = 0
+        content: str = file.read()
+        position: int = START_POSITION
         for line in content.splitlines():
-            direction = 1 if line[0] == "R" else -1
-            distance = int(line[1:])
+            direction: int = 1 if line[0] == "R" else -1
+            distance: int = int(line[1:])
 
             # # Move step by step to handle wrapping
             # # O(n) approach, not efficient for large distances
@@ -54,39 +58,39 @@ try:
                 # Distance from current position to next 0 (going right)
                 if position == 0:
                     # Already at 0, first crossing is after 100 steps
-                    distance_to_first_zero = 100
+                    distance_to_first_zero: int = POSITION_RANGE
                 else:
                     # Distance to wrap around to 0: (100 - currentValue)
-                    distance_to_first_zero = 100 - position
+                    distance_to_first_zero: int = POSITION_RANGE - position
 
                 if distance >= distance_to_first_zero:
                     # We'll cross at least one zero
                     zero_crossings += 1
-                    remaining_distance = distance - distance_to_first_zero
+                    remaining_distance: int = distance - distance_to_first_zero
                     # Each additional 100 steps crosses zero again
-                    zero_crossings += remaining_distance // 100
+                    zero_crossings += remaining_distance // POSITION_RANGE
 
             else:  # Moving left (negative direction)
                 # We pass 0 when going from 1 to 0
                 # Distance from current position to next 0 (going left)
                 if position == 0:
                     # Already at 0, first crossing is after 100 steps left (to 0 again)
-                    distance_to_first_zero = 100
+                    distance_to_first_zero: int = POSITION_RANGE
                 else:
                     # Distance to reach 0 going left: currentValue steps
-                    distance_to_first_zero = position
+                    distance_to_first_zero: int = position
 
                 if distance >= distance_to_first_zero:
                     # We'll cross at least one zero
                     zero_crossings += 1
-                    remaining_distance = distance - distance_to_first_zero
+                    remaining_distance: int = distance - distance_to_first_zero
                     # Each additional 100 steps crosses zero again
-                    zero_crossings += remaining_distance // 100
+                    zero_crossings += remaining_distance // POSITION_RANGE
 
             # Update position for next iteration
-            position = (position + direction * distance) % 100
+            position = (position + direction * distance) % POSITION_RANGE
 
-        print("Password: " + str(zero_crossings))
+        print(f"Password: {zero_crossings}")
 
 except FileNotFoundError:
     print(f"Error: File '{filename}' not found.")
