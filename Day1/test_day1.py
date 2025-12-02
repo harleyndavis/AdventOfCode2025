@@ -10,8 +10,14 @@ import os
 import sys
 
 # Add parent directory to path to import day1 module
-sys.path.append('.')
-from day1 import parse_command, calculate_zero_crossings, process_commands, START_POSITION, POSITION_RANGE
+sys.path.append(".")
+from day1 import (
+    parse_command,
+    calculate_zero_crossings,
+    process_commands,
+    START_POSITION,
+    POSITION_RANGE,
+)
 
 
 def run_test(test_name, test_func):
@@ -48,7 +54,7 @@ class TestParseCommand:
         direction, distance = parse_command("R0")
         assert direction == 1
         assert distance == 0
-        
+
         direction, distance = parse_command("L0")
         assert direction == -1
         assert distance == 0
@@ -103,7 +109,7 @@ class TestCalculateZeroCrossings:
         # First crossing at step 10 (90->0), then every 100 steps
         crossings, new_pos = calculate_zero_crossings(90, 1, 220)
         assert crossings == 3  # At steps 10, 110, 210
-        assert new_pos == 10   # (90 + 220) % 100 = 10
+        assert new_pos == 10  # (90 + 220) % 100 = 10
 
     def test_multiple_crossings_left(self):
         """Test multiple zero crossings going left."""
@@ -145,7 +151,7 @@ class TestProcessCommands:
 
     def create_temp_file(self, content: str) -> str:
         """Helper to create temporary test files."""
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
             f.write(content)
             return f.name
 
@@ -205,7 +211,7 @@ class TestEdgeCases:
         assert crossings == 1  # Should cross zero
         assert new_pos == 0
 
-        # Test at position 1  
+        # Test at position 1
         crossings, new_pos = calculate_zero_crossings(1, -1, 1)
         assert crossings == 1  # Should cross zero
         assert new_pos == 0
@@ -222,15 +228,15 @@ class TestEdgeCases:
         # Multiple small moves should equal one large move
         pos = START_POSITION
         total_crossings = 0
-        
+
         # Take 10 steps of 37 each
         for _ in range(10):
             crossings, pos = calculate_zero_crossings(pos, 1, 37)
             total_crossings += crossings
-            
+
         # Compare with one large step
         large_crossings, large_pos = calculate_zero_crossings(START_POSITION, 1, 370)
-        
+
         assert total_crossings == large_crossings
         assert pos == large_pos
 
@@ -245,10 +251,10 @@ if __name__ == "__main__":
     """Run all tests and report results."""
     print("🧪 Running Day 1 Unit Tests")
     print("=" * 40)
-    
+
     passed = 0
     total = 0
-    
+
     # Test parse_command function
     print("\n📋 Testing parse_command()")
     tests = TestParseCommand()
@@ -257,15 +263,15 @@ if __name__ == "__main__":
         ("Parse L commands", tests.test_parse_left_command),
         ("Parse zero distance", tests.test_parse_zero_distance),
         ("Parse large distance", tests.test_parse_large_distance),
-        ("Parse single digit", tests.test_parse_single_digit)
+        ("Parse single digit", tests.test_parse_single_digit),
     ]
-    
+
     for name, method in test_methods:
         if run_test(name, method):
             passed += 1
         total += 1
-    
-    # Test calculate_zero_crossings function  
+
+    # Test calculate_zero_crossings function
     print("\n🎯 Testing calculate_zero_crossings()")
     tests = TestCalculateZeroCrossings()
     test_methods = [
@@ -278,14 +284,14 @@ if __name__ == "__main__":
         ("Starting at zero right", tests.test_starting_at_zero_right),
         ("Starting at zero left", tests.test_starting_at_zero_left),
         ("Exact boundary crossings", tests.test_exact_boundary_crossings),
-        ("Zero distance", tests.test_zero_distance)
+        ("Zero distance", tests.test_zero_distance),
     ]
-    
+
     for name, method in test_methods:
         if run_test(name, method):
             passed += 1
         total += 1
-    
+
     # Test process_commands function
     print("\n📁 Testing process_commands()")
     tests = TestProcessCommands()
@@ -294,33 +300,33 @@ if __name__ == "__main__":
         ("Single command", tests.test_single_command),
         ("Multiple commands", tests.test_multiple_commands),
         ("Known test input", tests.test_known_test_input),
-        ("File with empty lines", tests.test_file_with_empty_lines)
+        ("File with empty lines", tests.test_file_with_empty_lines),
     ]
-    
+
     for name, method in test_methods:
         if run_test(name, method):
             passed += 1
         total += 1
-    
+
     # Test edge cases
     print("\n⚡ Testing edge cases")
     tests = TestEdgeCases()
     test_methods = [
         ("Position boundaries", tests.test_position_range_boundaries),
         ("Large distances", tests.test_large_distances),
-        ("Wrap around consistency", tests.test_wrap_around_consistency)
+        ("Wrap around consistency", tests.test_wrap_around_consistency),
     ]
-    
+
     for name, method in test_methods:
         if run_test(name, method):
             passed += 1
         total += 1
-    
+
     # Test constants
     if run_test("Constants defined", test_constants):
         passed += 1
     total += 1
-    
+
     # Final results
     print("\n" + "=" * 40)
     print(f"📊 Test Results: {passed}/{total} passed")
@@ -328,5 +334,5 @@ if __name__ == "__main__":
         print("🎉 All tests passed!")
     else:
         print(f"⚠️  {total - passed} tests failed")
-    
+
     exit(0 if passed == total else 1)
