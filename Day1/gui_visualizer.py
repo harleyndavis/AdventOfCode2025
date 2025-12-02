@@ -42,7 +42,7 @@ class DialVisualizer:
         self.is_animating = False
         self.animation_speed = 50  # milliseconds between steps
         self.step_mode = False  # True for step-by-step, False for smooth
-        
+
         # Timing
         self.start_time = None
         self.end_time = None
@@ -509,7 +509,7 @@ Mode: {'Step-by-step' if self.step_mode else 'Smooth'}{elapsed_str}"""
         self.current_position = START_POSITION
         self.zero_crossings = 0
         self.current_command_index = 0
-        
+
         # Reset timing
         self.start_time = None
         self.end_time = None
@@ -533,9 +533,9 @@ Mode: {'Step-by-step' if self.step_mode else 'Smooth'}{elapsed_str}"""
                 # Record end time and calculate duration
                 self.end_time = time.perf_counter()
                 duration = self.end_time - self.start_time if self.start_time else 0
-                
+
                 self.status_label.config(text="Animation complete!")
-                
+
                 # Format duration nicely
                 if duration < 1:
                     duration_str = f"{duration*1000:.1f} milliseconds"
@@ -545,9 +545,9 @@ Mode: {'Step-by-step' if self.step_mode else 'Smooth'}{elapsed_str}"""
                     minutes = int(duration // 60)
                     seconds = duration % 60
                     duration_str = f"{minutes}m {seconds:.1f}s"
-                
+
                 mode_str = "Step-by-step" if self.step_mode else "Smooth"
-                
+
                 messagebox.showinfo(
                     "Animation Complete! 🎉",
                     f"Animation finished!\n\n"
@@ -556,7 +556,7 @@ Mode: {'Step-by-step' if self.step_mode else 'Smooth'}{elapsed_str}"""
                     f"📊 Commands processed: {len(self.commands)}\n"
                     f"⏱️  Total time: {duration_str}\n"
                     f"🎮 Mode: {mode_str}\n"
-                    f"⚡ Speed: {self.animation_speed}ms per step"
+                    f"⚡ Speed: {self.animation_speed}ms per step",
                 )
             self.pause_animation()
             return
