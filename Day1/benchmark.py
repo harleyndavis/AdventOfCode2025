@@ -149,16 +149,25 @@ def run_benchmark_suite():
         (50, 1000, "Medium commands, medium distances"),
         (50, 10000, "Medium commands, large distances"),
         (100, 10000, "Large commands, large distances"),
+        ("REAL_INPUT", None, "🎯 REAL PUZZLE INPUT (4,317 commands)"),
     ]
 
     results = []
 
     for num_commands, max_distance, description in test_scenarios:
         print(f"\n🧪 Testing: {description}")
-        print(f"   Commands: {num_commands}, Max distance: {max_distance}")
 
-        # Generate test data
-        commands = generate_test_data(num_commands, max_distance)
+        if num_commands == "REAL_INPUT":
+            # Use actual puzzle input
+            with open("input.txt", "r") as f:
+                commands = [line.strip() for line in f if line.strip()]
+            num_commands = len(commands)
+            print(f"   Commands: {num_commands} (actual puzzle input)")
+        else:
+            print(f"   Commands: {num_commands}, Max distance: {max_distance}")
+            # Generate test data
+            commands = generate_test_data(num_commands, max_distance)
+
         total_distance = sum(int(cmd[1:]) for cmd in commands)
 
         # Create temp file for optimized version

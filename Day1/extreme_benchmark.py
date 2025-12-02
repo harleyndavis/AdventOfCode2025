@@ -63,11 +63,60 @@ def main():
         speedup_factor = estimated_naive_time / duration
         print(f"🚀 Estimated speedup: ~{speedup_factor:,.0f}x faster!")
 
-        print(f"\n🎉 This showcases why algorithmic optimization matters!")
+        print(f"🎉 This showcases why algorithmic optimization matters!")
         print(f"💡 O(1) vs O(n) makes the impossible possible!")
 
     finally:
         os.unlink(temp_file)
+
+    # Test with real puzzle input
+    print(f"\n" + "="*50)
+    print(f"🎯 TESTING WITH YOUR ACTUAL PUZZLE INPUT")
+    print(f"=" * 50)
+
+    # Load real puzzle input
+    with open("input.txt", "r") as f:
+        real_commands = [line.strip() for line in f if line.strip()]
+
+    real_total_distance = sum(int(cmd[1:]) for cmd in real_commands)
+
+    print(f"📊 Real puzzle commands: {len(real_commands):,}")
+    print(f"📊 Real total distance: {real_total_distance:,} steps")
+    print(f"📊 With O(n), this would take ~{real_total_distance:,} operations")
+    print(f"📊 With our O(1), this takes only {len(real_commands)} operations")
+
+    # Create temp file and benchmark
+    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt") as f:
+        f.write("\n".join(real_commands))
+        temp_filename = f.name
+
+    try:
+        print(f"\n⏱️  Running on REAL puzzle input...")
+        start_time = time.perf_counter()
+        real_result = process_commands(temp_filename)
+        end_time = time.perf_counter()
+        
+        real_duration = (end_time - start_time) * 1000  # Convert to ms
+        
+        print(f"✅ Real puzzle result: {real_result} zero crossings")
+        print(f"⚡ Time taken: {real_duration:.2f}ms")
+        print(f"🎯 Performance: {real_total_distance/real_duration:.0f} steps per millisecond")
+        
+        # Estimate O(n) time for comparison
+        estimated_naive_time = real_total_distance * 0.00006  # 60ms per 1M steps estimate
+        if estimated_naive_time > 1000:
+            print(f"🐌 Estimated O(n) time: ~{estimated_naive_time/1000:.1f} seconds")
+            speedup = (estimated_naive_time * 1000) / real_duration
+            print(f"🚀 Estimated speedup: ~{speedup:.0f}x faster!")
+        else:
+            print(f"🐌 Estimated O(n) time: ~{estimated_naive_time:.0f}ms")
+            speedup = estimated_naive_time / real_duration
+            print(f"🚀 Estimated speedup: ~{speedup:.1f}x faster!")
+            
+    finally:
+        os.unlink(temp_filename)
+
+    print(f"\n🏆 Your algorithm handles both synthetic AND real data beautifully!")
 
 
 if __name__ == "__main__":
