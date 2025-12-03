@@ -76,15 +76,16 @@ def is_invalid_id(id_num: int) -> bool:
 
     # Check all possible pattern lengths from 1 to half the string length
     for pattern_len in range(1, length // 2 + 1):
-        pattern = id_str[:pattern_len]
-
-        # Check if the entire string can be formed by repeating this pattern
         if length % pattern_len == 0:  # Length must be divisible by pattern length
-            repetitions = length // pattern_len
-            if repetitions >= 2:  # Must repeat at least twice
-                repeated_pattern = pattern * repetitions
-                if repeated_pattern == id_str:
-                    return True
+            # Check if characters repeat with the pattern length
+            # This is more efficient than creating substrings
+            is_repeated = True
+            for i in range(pattern_len, length):
+                if id_str[i] != id_str[i % pattern_len]:
+                    is_repeated = False
+                    break
+            if is_repeated:
+                return True
 
     return False
 
