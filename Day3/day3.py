@@ -107,7 +107,6 @@ def solve_part2(data: List[str]) -> int:
 
             final_value += str(max_value)
 
-        print(final_value)
         result += int(final_value)
 
     return result
