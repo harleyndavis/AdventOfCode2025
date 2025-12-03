@@ -76,6 +76,11 @@ def solve_part1(data: List[str]) -> int:
     return total_output_joltage
 
 
+def find_n_smallest(line: str, n: int) -> List[int]:
+    digits = [int(char) for char in line if char.isdigit()]
+    return sorted(digits)[:n]
+
+
 def solve_part2(data: List[str]) -> int:
     """Solve part 2 of the problem.
 
@@ -85,12 +90,25 @@ def solve_part2(data: List[str]) -> int:
     Returns:
         Solution for part 2
     """
-    # TODO: Implement part 2 solution
     result = 0
 
     for line in data:
-        # Process each line
-        pass
+        length = len(line)
+        final_value: str = ""
+        last_index: int = -1
+        for i in range(11, -1, -1):
+            # Get the first (length - i) characters
+            substring = line[last_index + 1 : length - i]
+            digits = [int(char) for char in substring if char.isdigit()]
+
+            max_value = max(digits)
+            # Find the index of the max_value in the original line
+            last_index = substring.index(str(max_value)) + last_index + 1
+
+            final_value += str(max_value)
+
+        print(final_value)
+        result += int(final_value)
 
     return result
 
@@ -114,13 +132,13 @@ def main() -> None:
         print(f"   Part 2: {part2_result}")
 
     except FileNotFoundError as e:
-        print(f"❌ Error: {{e}}")
+        print(f"❌ Error: {e}")
         sys.exit(1)
     except ValueError as e:
-        print(f"❌ Error: {{e}}")
+        print(f"❌ Error: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Unexpected error: {{e}}")
+        print(f"❌ Unexpected error: {e}")
         sys.exit(1)
 
 
