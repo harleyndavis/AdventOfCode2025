@@ -49,8 +49,29 @@ def solve_part1(data: List[str]) -> int:
 
     for line in data:
         # Process each line
-        for char in line:
-            
+
+        # Find the first maximum value and its position
+        digits = [int(char) for char in line if char.isdigit()]
+        if digits:
+            max_value = max(digits[:-1])
+            max_position = line.index(str(max_value))
+        else:
+            max_value = -1
+            max_position = -1
+
+        # Find the largest value after the max_position
+        remaining_digits = [
+            int(char) for char in line[max_position + 1 :] if char.isdigit()
+        ]
+        if remaining_digits:
+            second_max = max(remaining_digits)
+        else:
+            second_max = -1
+
+        # Concatenate max_value and second_max to form a two-digit number
+        if max_value != -1 and second_max != -1:
+            concatenated_value = int(str(max_value) + str(second_max))
+            total_output_joltage += concatenated_value
 
     return total_output_joltage
 
@@ -77,7 +98,7 @@ def solve_part2(data: List[str]) -> int:
 def main() -> None:
     """Main entry point."""
     # Get filename from command line argument, or use default
-    filename: str = sys.argv[1] if len(sys.argv) > 1 else "./Day3/test_input.txt"
+    filename: str = sys.argv[1] if len(sys.argv) > 1 else "./Day3/input.txt"
 
     try:
         # Parse input
@@ -89,8 +110,8 @@ def main() -> None:
 
         # Output results
         print(f"🎯 Day 3 Results:")
-        print(f"   Part 1: {{part1_result}}")
-        print(f"   Part 2: {{part2_result}}")
+        print(f"   Part 1: {part1_result}")
+        print(f"   Part 2: {part2_result}")
 
     except FileNotFoundError as e:
         print(f"❌ Error: {{e}}")
