@@ -48,9 +48,41 @@ Using actual `input.txt` and `test_input.txt`:
 3. Optimization benefits are most apparent with pattern-heavy datasets
 4. Real-world performance maintained while improving memory efficiency
 
+## Interactive Visualization
+
+### Pattern Detection Matrix GUI
+An advanced interactive visualization that shows the pattern detection algorithm in real-time:
+
+**Key Features:**
+- **Real-time Matrix Visualization**: Color-coded grid showing pattern analysis step-by-step
+  - 🔴 Red = Pattern mismatch detected
+  - ⚪ White = Position not yet analyzed  
+  - 🟡 Yellow = Pattern match found
+  - 🟢 Green = Complete repeating pattern confirmed
+- **Interactive Controls**: Start/pause/step processing with speed adjustment
+- **Live Statistics**: Real-time tracking of valid/invalid counts and pattern distribution
+- **Processing Queue**: Visual feed of recent numbers with color-coded results
+- **Pattern Analysis**: Detailed breakdown of detected patterns and algorithm steps
+
+**Usage:**
+```bash
+# Run the interactive GUI (requires matplotlib)
+& .\.venv\Scripts\python.exe Day2\pattern_gui.py
+
+# Load custom input file
+& .\.venv\Scripts\python.exe Day2\pattern_gui.py --file test_input.txt
+```
+
+**Educational Value:**
+- Watch the algorithm analyze each digit position for pattern matches
+- See why certain numbers take longer to process than others  
+- Understand the mathematical beauty of repeated digit sequences
+- Learn how pattern length affects detection complexity
+
 ## Files
 
 - `Day2.py` - Main solution with optimized `is_invalid_id()` function
+- `pattern_gui.py` - Interactive Pattern Detection Matrix visualization
 - `input.txt` - Full puzzle input (32 ranges, 2.26M numbers)
 - `test_input.txt` - Test data (11 ranges, 106 numbers)
 - `benchmark_optimization.py` - Synthetic data performance comparison
@@ -59,15 +91,34 @@ Using actual `input.txt` and `test_input.txt`:
 
 ## Usage
 
+### Command Line Solution
 ```bash
 # Run with default input
 python Day2.py
 
-# Run with test input
+# Run with test input  
 python Day2.py test_input.txt
 
 # Run performance benchmarks
 python real_data_benchmark.py
+```
+
+### Interactive Visualization
+```bash
+# Launch Pattern Detection Matrix GUI
+& .\.venv\Scripts\python.exe pattern_gui.py
+
+# Load specific input file in GUI
+& .\.venv\Scripts\python.exe pattern_gui.py --file test_input.txt
+
+# Step-by-step educational mode (enable in GUI controls)
+# - Load file → Enable "Step-by-step mode" → Start Processing → Use Step button
+```
+
+### Prerequisites for GUI
+```bash
+# Install required dependencies in virtual environment
+& .\.venv\Scripts\python.exe -m pip install matplotlib
 ```
 
 ## Algorithm Complexity
