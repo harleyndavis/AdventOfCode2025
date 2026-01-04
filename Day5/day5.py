@@ -66,20 +66,20 @@ def solve_part2(ranges: List[tuple], ids_to_check: List[int]) -> int:
     The ids_to_check parameter is ignored for part 2.
 
     Args:
-        ranges: List of ID ranges  
+        ranges: List of ID ranges
         ids_to_check: List of IDs (ignored for part 2)
 
     Returns:
         Total count of all IDs covered by the ranges
     """
     total_fresh_ids = 0
-    
+
     # Count all IDs covered by each range
     for start, end in ranges:
         # Range is inclusive: end - start + 1 gives count of IDs in range
         range_count = end - start + 1
         total_fresh_ids += range_count
-    
+
     return total_fresh_ids
 
 
